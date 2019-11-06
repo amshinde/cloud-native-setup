@@ -1,7 +1,7 @@
 apiVersion: kubeadm.k8s.io/v1beta1
 kind: InitConfiguration
 nodeRegistration:
-  criSocket: /var/run/crio/crio.sock
+  criSocket: /var/run/containerd/containerd.sock
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
@@ -13,6 +13,7 @@ systemReserved:
 kubeReserved:
   cpu: 500m
   memory: 256M
+cgroupDriver: cgroupfs
 ---
 apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration

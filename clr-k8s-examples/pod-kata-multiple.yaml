@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod1
+  namespace: default
+  annotations:
+    io.kubernetes.cri.untrusted-workload: "true"
+spec:
+  runtimeClassName: kata
+  containers:
+    - name: ctr1
+      image: debian
+      command:
+        - sleep
+        - "3600"
+    - name: ctr2
+      image: debian
+      command:
+        - sleep
+        - "3600"
+    - name: ctr3
+      image: debian
+      command:
+        - sleep
+        - "3600"
+    - name: ctr4
+      image: debian
+      command:
+        - sleep
+        - "3600"
+    - name: ctr5
+      image: debian
+      command:
+        - sleep
+        - "3600"

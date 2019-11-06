@@ -51,12 +51,15 @@ function cluster_init() {
 
 function kata() {
 	# Install kata artifacts using kata-deploy
-	kubectl apply -f 8-kata/deploy/kata-rbac.yaml
-	kubectl apply -f 8-kata/deploy/kata-deploy.yaml
-	kubectl apply -f 8-kata/
+	echo "skiping kata-deploy"
+	#kubectl apply -f 8-kata/deploy/kata-rbac.yaml
+	#kubectl apply -f 8-kata/deploy/kata-deploy.yaml
+	#kubectl apply -f 8-kata/
 }
 
 function cni() {
+	#kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+	#sudo cp ./ptp.json /etc/cni/net.d/10-ptp.json
 	kubectl apply -f 0-canal/rbac.yaml
 	kubectl apply -f 0-canal/canal.yaml
 }

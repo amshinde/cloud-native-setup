@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kata-pod-2
+  namespace: default
+  annotations:
+    io.kata-containers.config.hypervisor.default_vcpus: "2"   
+    io.kata-containers.config.hypervisor.default_max_vcpus: "3"   
+    io.kata-containers.config.hypervisor.default_memory: "1024"   
+    io.kata-containers.config.hypervisor.kernel_params: "testparam=true"   
+spec:
+  runtimeClassName: kata2
+  containers:
+    - name: sleep
+      image: debian
+      command:
+        - sleep
+        - "3600"
+      volumeMounts:
+        - mountPath: /host-emptydir
+          name: host-emptydir
+        - mountPath: /memory-emptydir
+          name: memory-emptydir
+  volumes:
+    - name: host-emptydir
+    - name: memory-emptydir
+      emptyDir:
+        medium: "Memory"

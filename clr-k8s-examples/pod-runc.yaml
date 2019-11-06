@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-runc
+  namespace: default
+spec:
+  containers:     
+    - name: sleep
+      image: debian
+      securityContext:
+        privileged: true
+      command:
+        - sleep
+        - "3600"

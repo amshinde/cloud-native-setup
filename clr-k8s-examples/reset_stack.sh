@@ -3,7 +3,8 @@
 set -o nounset
 
 #Cleanup
-sudo -E kubeadm reset -f --cri-socket="/var/run/crio/crio.sock"
+#sudo -E kubeadm reset -f --cri-socket="/var/run/crio/crio.sock"
+sudo -E kubeadm reset -f --cri-socket="/var/run/containerd/containerd.sock"
 
 for ctr in $(sudo crictl ps --quiet); do
 	sudo crictl stop "$ctr"
@@ -17,7 +18,7 @@ done
 #Forcefull cleanup all artifacts
 #This is needed is things really go wrong
 sudo systemctl stop kubelet
-sudo systemctl stop crio
+sudo systemctl stop crio containerd
 sudo pkill -9 qemu
 sudo pkill -9 kata
 sudo pkill -9 kube
@@ -39,8 +40,11 @@ sudo -E bash -c "rm -r /var/run/kata-containers/*"
 sudo rm -rf /var/lib/rook
 
 sudo systemctl daemon-reload
-sudo systemctl enable kubelet crio
-sudo systemctl restart crio
+#sudo systemctl enable kubelet crio containerd
+sudo systemctl enable kubelet containerd
+#sudo systemctl restart crio containerd
+sudo systemctl restart containerd
 sudo systemctl restart kubelet
 
-sudo -E kubeadm reset -f --cri-socket="/var/run/crio/crio.sock"
+#sudo -E kubeadm reset -f --cri-socket="/var/run/crio/crio.sock"
+sudo -E kubeadm reset -f --cri-socket="/var/run/containerd/containerd.sock"

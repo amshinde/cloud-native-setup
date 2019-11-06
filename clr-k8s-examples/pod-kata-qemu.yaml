@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-kata-qemu
+  namespace: default
+spec:
+  runtimeClassName: kata-qemu
+  containers:
+    - name: kata-sleep
+      securityContext:
+        privileged: true
+      image: debian
+      command:
+        - sleep
+        - "3600"
